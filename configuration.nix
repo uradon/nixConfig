@@ -1,26 +1,23 @@
-{ config, pkgs, ... }:
-let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
-in
-{
-  imports = [
-    ./hardware-configuration.nix
-    (import "${home-manager}/nixos")
-    ./home-manager.nix
-  ];
+{ config, pkgs, inputs, ... }:
 
-  # Bootloader
+{
+  imports =
+    [ 
+      ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
+    ];
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  # Networking
-  networking.hostName = "nixos";
+  networking.hostName = "nixos"; 
+  nix.settings.experimental-features = [ "nix-command" "flakes"];
   networking.networkmanager.enable = true;
 
-  # Time zone and locale
   time.timeZone = "Europe/Moscow";
+
   i18n.defaultLocale = "en_US.UTF-8";
+
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "ru_RU.UTF-8";
     LC_IDENTIFICATION = "ru_RU.UTF-8";
@@ -33,44 +30,77 @@ in
     LC_TIME = "ru_RU.UTF-8";
   };
 
-  # X11 and Desktop Environment
   services.xserver.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.xkb.layout = "us";
 
-  # Printing and sound
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
   services.printing.enable = true;
-  hardware.pulseaudio.enable = false;
+
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+   
   };
-
-  # User configuration
-  users.users.maxon = {
+  users.users.max = {
     isNormalUser = true;
-    description = "maxon";
+    description = "nixos";
     extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+    #  thunderbird
+    ];
+  };
+  
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "max" = import ./home.nix;
+    };
+  
   };
 
-  # Automatic login
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "maxon";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "max";
 
-  # Allow unfree packages
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
+
+  programs.firefox.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
-  # System-wide packages
   environment.systemPackages = with pkgs; [
+    vim 
     wget
-    git
+    neovim
+    jetbrains.clion
+    hiddify-app
+    telegram-desktop
+    fastfetch
+    mpv
     htop
   ];
 
-  # System state version
-  system.stateVersion = "24.11";
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
+  };
+
+  environment.variables.EDITOR = "nvim";
+  console = {
+    font = "ter-u32n";
+    packages = with pkgs; [ terminus_font ];
+  };
+
+  system.stateVersion = "25.05"; 
 }
+
