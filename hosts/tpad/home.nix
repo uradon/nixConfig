@@ -5,7 +5,6 @@
   home.username = "max";
   home.homeDirectory = "/home/max";
   imports = [ 
-    inputs.nvf.homeManagerModules.default 
   ];
   home.stateVersion = "25.05"; # Please read the comment before changing.
   nixpkgs.config.allowUnfree = true;
@@ -55,28 +54,7 @@
     };
   };
 
-  
-
-  #programs.nvf = {
-  #   enable = true;
-  #   settings = {
-  #     vim = {
-  #       options.shiftwidth = 2;
-  #       autocomplete.nvim-cmp.enable = true; 
-  #       autopairs.nvim-autopairs.enable = true;
-  #       
-  #       languages = {
-  #         enableLSP = true;
-  #         enableTreesitter = true; 
-  #         texlab.enable = true;
-  #         nix.enable = true;
-  #         clang.enable = true;
-  #       };
-  #     };
-  #   };
-  # };
-
-
+   
   home.packages = [
     pkgs.starship
     pkgs.kitty
