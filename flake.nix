@@ -16,16 +16,27 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs"; 
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpgks.follows = "nixpgks";
+    };
+
   };
 
-  outputs = { self, nixpkgs, stylix, ... }@inputs: {
+  outputs = { self, nixpkgs, stylix, nvf, sops-nix, ... }@inputs: {
+   
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
-        ./configuration.nix
-        inputs.home-manager.nixosModules.default
-	stylix.nixosModules.stylix
+        ./hosts/tpad/configuration.nix
+	./nixosModules
       ];
     };
+    hmodules.default = ./hmodules;
   };
 }

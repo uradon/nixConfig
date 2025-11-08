@@ -1,18 +1,23 @@
 { config, pkgs, inputs, ... }:
 
+
 {
   imports =
     [ 
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
     ];
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+
 
   networking.hostName = "nixos"; 
   nix.settings.experimental-features = [ "nix-command" "flakes"];
   networking.networkmanager.enable = true;
+  networking.firewall.checkReversePath = "strict";
+
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
 
   time.timeZone = "Europe/Moscow";
 
@@ -31,18 +36,19 @@
   };
 
   services.xserver.enable = true;
-
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
+  services.xserver.xkbOptions = "grp:alt_shift_toggle";
   services.xserver.xkb = {
-    layout = "us";
+    layout = "us, ru";
     variant = "";
   };
 
   services.printing.enable = true;
 
-  services.pulseaudio.enable = false;
+
+  haVideo.enable = false; 
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -51,6 +57,8 @@
     pulse.enable = true;
    
   };
+
+
   users.users.max = {
     isNormalUser = true;
     description = "nixos";
@@ -60,12 +68,14 @@
     ];
   };
   
-  home-manager = {
+  home-manager."max" = {
     extraSpecialArgs = {inherit inputs;};
     users = {
-      "max" = import ./home.nix;
-    };
-  
+      modules = [
+	./home.nix
+	inputs.self.outputs.hmodules.default
+      ];
+    };  
   };
 
   services.displayManager.autoLogin.enable = true;
@@ -75,24 +85,63 @@
   systemd.services."autovt@tty1".enable = false;
 
   programs.firefox.enable = true;
-
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["max"];
   nixpkgs.config.allowUnfree = true;
+  
+  programs.steam = { 
+    enable = true;
+    remotePlay.openFirewall = true; 
+    dedicatedServer.openFirewall = true; 
+  };
+
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
 
   environment.systemPackages = with pkgs; [
     vim 
     wget
     neovim
-    jetbrains.clion
     hiddify-app
     telegram-desktop
     fastfetch
     mpv
-    htop
+    fastfetch
+    mtr
+    nekoray
+    spotify
+    gimp3
+    git
+    tmux
+    ffmpeg
+    img2pdf
+    virtiofsd
+    libvirt-glib
+    zip
+    clash-verge-rev
+    gnome-tweaks
+    
+    #qt5_512
+    # nvf build
+    #inputs.self.packages.${pkgs.system}.default 
   ];
+  
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
 
+
+  programs.nekoray = {
+    enable = true; 
+    tunMode.enable = true; 
+  };
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
+    autoEnable = true;
   };
 
   environment.variables.EDITOR = "nvim";
@@ -103,4 +152,3 @@
 
   system.stateVersion = "25.05"; 
 }
-
