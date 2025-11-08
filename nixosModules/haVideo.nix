@@ -4,7 +4,7 @@
   
   options = { 
     haVideo.enable =
-      lib.mkEnableOption "enables hardwar accelerated video";
+      lib.mkEnableOption "enables hardware accelerated video";
   };
   
   config = lib.mkIf config.haVideo.enable {
