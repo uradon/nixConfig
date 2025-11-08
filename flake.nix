@@ -21,14 +21,9 @@
       inputs.nixpkgs.follows = "nixpkgs"; 
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpgks.follows = "nixpgks";
-    };
-
   };
 
-  outputs = { self, nixpkgs, stylix, nvf, sops-nix, ... }@inputs: {
+  outputs = { nixpkgs, stylix, nvf, ... }@inputs: {
    
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};

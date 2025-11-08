@@ -68,13 +68,15 @@
     ];
   };
   
-  home-manager."max" = {
+  home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
-      modules = [
-	./home.nix
-	inputs.self.outputs.hmodules.default
-      ];
+      "max" = {
+	imports = [
+	  ./home.nix
+	  inputs.self.outputs.hmodules.default
+	];
+      };
     };  
   };
 
