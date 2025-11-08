@@ -106,7 +106,6 @@
     vim 
     wget
     neovim
-    hiddify-app
     telegram-desktop
     fastfetch
     mpv
@@ -140,11 +139,11 @@
     enable = true; 
     tunMode.enable = true; 
   };
-  stylix = {
-    enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
-    autoEnable = true;
-  };
+  #stylix = {
+  #  enable = true;
+  #  base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
+  #  autoEnable = true;
+  #};
 
   environment.variables.EDITOR = "nvim";
   console = {
