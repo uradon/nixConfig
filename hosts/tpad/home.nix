@@ -16,48 +16,15 @@
   '';
   };
 
-
-  programs.kitty = {
+  starship = {
     enable = true;
-    settings = {
-      confirm_os_window_close = 0;
-      dynamic_background_opacity = true;
-      enable_audio_bell = false;
-      mouse_hide_wait = "-1.0";
-      window_padding_width = 10;
-      background_blur = 5;
-      symbol_map = "U+E0A0-U+E0FF,U+2600-U+26FF Symbols Nerd Font";
-    };
-  }; 
-  programs.starship = {
-    enable = true;
-    settings = {
-      format = "[$os]($style)$directory[$nix_shell]($style)$character";
-      character = {
-	format = "> ";
-      };
-
-      os = {
-	disabled = false;
-	style = "bold blue";
-	symbols = {
-	  NixOS = " "; 
-	};
-      };
-      directory.read_only = "";
-      #directory.read_only = "󰌾";
-      custom.nix_shell = {
-	detect = ''[ -n "$IN_NIX_SHELL" ]'';  # Checks if in nix-shell
-	style = "bold cyan";
-	format = "(fg:#89c0d0) ";  # Light blue color, adjust as needed
-      };
-    };
+    style = "fancy";
   };
 
-   
+
+  kitty.enable = true; 
+     
   home.packages = [
-    pkgs.starship
-    pkgs.kitty
     pkgs.discord
     pkgs.zathura
     pkgs.texliveFull

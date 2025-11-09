@@ -12,7 +12,7 @@
 
 
 
-  networking.hostName = "nixos"; 
+  networking.hostName = "tpad"; 
   nix.settings.experimental-features = [ "nix-command" "flakes"];
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = "strict";
@@ -139,11 +139,6 @@
     enable = true; 
     tunMode.enable = true; 
   };
-  #stylix = {
-  #  enable = true;
-  #  base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
-  #  autoEnable = true;
-  #};
 
   environment.variables.EDITOR = "nvim";
   console = {
