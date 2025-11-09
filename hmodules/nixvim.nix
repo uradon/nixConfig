@@ -7,11 +7,12 @@
     enable = true;
 
     opts = {
-      shiftwidth     = 2;
+      shiftwidth = 2;
       relativenumber = true;
     };
 
     plugins = {
+      neo-tree.enable = true;
       vimtex = {
         enable   = true;
         settings.view_method = "zathura";
@@ -20,12 +21,12 @@
       treesitter.enable = true;
 
       "lsp-format" = {
-        enable           = true;
+        enable = true;
         lspServersToEnable = "all";
       };
 
       cmp = {
-        enable          = true;
+        enable = true;
         autoEnableSources = true;
         settings.sources = [
           { name = "nvim_lsp"; }
