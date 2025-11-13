@@ -25,7 +25,7 @@
 
   outputs = { nixpkgs, stylix, nvf, ... }@inputs: {
    
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.tpad = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/tpad/configuration.nix

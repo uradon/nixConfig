@@ -61,8 +61,8 @@
 
   users.users.max = {
     isNormalUser = true;
-    description = "nixos";
-    extraGroups = [ "networkmanager" "wheel" ];
+    description = "tpad";
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -123,6 +123,8 @@
     zip
     clash-verge-rev
     gnome-tweaks
+
+    powertop
     
     #qt5_512
     # nvf build

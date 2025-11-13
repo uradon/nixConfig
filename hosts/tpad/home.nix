@@ -38,6 +38,7 @@
     pkgs.jetbrains.clion
     pkgs.steam
     pkgs.brave
+    pkgs.caligula
  ];
 
   home.file = {
