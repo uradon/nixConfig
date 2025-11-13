@@ -32,6 +32,13 @@
 	./nixosModules
       ];
     };
+    nixosConfigurations.beefpad = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;}; 
+      modules = [
+	./hosts/beefpad/configuration.nix
+	./nixosModules
+      ];
+    };
     hmodules.default = ./hmodules;
   };
 }
