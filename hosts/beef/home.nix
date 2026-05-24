@@ -14,7 +14,6 @@
  };
 
   
-  programs.anki.enable = true;  
   programs.watch_episode.enable = true;
 
   kitty.enable = true; 
@@ -31,6 +30,7 @@
     pkgs.stress-ng
     pkgs.tor
     pkgs.qalculate-qt
+    pkgs.anki-bin
    ];
 
   home.file = {
