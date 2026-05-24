@@ -1,8 +1,8 @@
 { pkgs, lib, ...}: {
   imports = [
+    ./kitty.nix
     ./nixvim.nix
     ./starship.nix
-    ./nvfcfg.nix
-    ./kitty.nix
+    ./watch_episode.nix
   ];   
 }

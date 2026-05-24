@@ -5,40 +5,30 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-unstable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim"; 
-      inputs.nixpkgs.follows = "nixpkgs";
+       url = "github:nix-community/nixvim";
     };
     stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/stylix/release-25.11";
     };
-    nvf = {
-      url = "github:notashelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs"; 
-    };
-
+    
   };
 
-  outputs = { nixpkgs, stylix, nvf, ... }@inputs: {
+  outputs = { nixpkgs, stylix, ... }@inputs: {
    
-    nixosConfigurations.tpad = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.beef = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
-        ./hosts/tpad/configuration.nix
-	./nixosModules
+	stylix.nixosModules.stylix
+        ./hosts/beef/configuration.nix
+        ./nixosModules
       ];
     };
-    nixosConfigurations.beefpad = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;}; 
-      modules = [
-	./hosts/beefpad/configuration.nix
-	./nixosModules
-      ];
-    };
+
     hmodules.default = ./hmodules;
+    
   };
 }

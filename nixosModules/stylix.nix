@@ -1,12 +1,14 @@
 { pkgs, lib, config, inputs, ... }:
 
 {
-  imports = [inputs.stylix.nixosModules.stylix];
+
+  options.autorice.enable = lib.mkEnableOption "enables stylix"; 
   
-  stylix = {
-    enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
-    autoEnable = true;
+  config = lib.mkIf config.autorice.enable { 
+    stylix = {
+      enable = true;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
+    };
   };
 
 }

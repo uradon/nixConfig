@@ -1,6 +1,8 @@
-{ pkgs, lib, ...}: {
+{ config, pkgs, lib, ...}: {
   imports = [
-    ./haVideo.nix
     ./stylix.nix
+    ./sddm.nix
+    ./haVideo.nix
+    ./ffmpeg-service.nix
   ];   
 }
