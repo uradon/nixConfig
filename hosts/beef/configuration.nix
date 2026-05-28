@@ -81,12 +81,15 @@
 
   home-manager = {
     backupFileExtension = "backup";
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = {
+	inherit inputs;
+    };
     users = {
       "beef"= {
         imports = [
           ./home.nix
-          inputs.self.outputs.hmodules.default
+          inputs.nixvim.homeModules.nixvim 
+	  inputs.self.outputs.hmodules.default  
         ];
       };
      };
@@ -120,6 +123,7 @@
     qemu
     dnsmasq
     amnezia-vpn
+    caligula
   
   ];
 
