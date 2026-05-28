@@ -88,7 +88,6 @@
       "beef"= {
         imports = [
           ./home.nix
-          inputs.nixvim.homeModules.nixvim 
 	  inputs.self.outputs.hmodules.default  
         ];
       };
