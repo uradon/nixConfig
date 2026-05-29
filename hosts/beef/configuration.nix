@@ -8,7 +8,15 @@
       inputs.home-manager.nixosModules.default
     ];
 
-
+ 
+  nix.settings = {
+    # Replace the default list with Chinese mirrors, falling back to the official cache
+    substituters = [
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://cache.nixos.org"
+    ];
+  };
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
