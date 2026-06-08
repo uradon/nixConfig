@@ -10,6 +10,10 @@
     programs.kitty = {
       enable = true;
       settings = {
+	input_delay = 0;
+	repaint_delay = 2;
+	sync_to_monitor = false;
+	wayland_enable_ime = false;
 	confirm_os_window_close = 0;
 	dynamic_background_opacity = true;
 	enable_audio_bell = false;

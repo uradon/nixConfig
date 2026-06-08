@@ -15,6 +15,7 @@
 
   
   programs.watch_episode.enable = true;
+  programs.rebuild-switch.enable = true;
 
   kitty.enable = true; 
   home.packages = [
@@ -31,6 +32,8 @@
     pkgs.tor
     pkgs.qalculate-qt
     pkgs.anki-bin
+    #pkgs.qtcreator
+    #pkgs.qt5.qtbase
    ];
 
   home.file = {

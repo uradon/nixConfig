@@ -10,15 +10,21 @@
 
  
   nix.settings = {
-    # Replace the default list with Chinese mirrors, falling back to the official cache
-    substituters = [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
-      "https://cache.nixos.org"
-    ];
+    connect-timeout = 60;
+    http-connections = 50;
+
   };
+  #nix.settings.substituters = [ "https://aseipp-nix-cache.global.ssl.fastly.net" ];
+
+
+  #networking.proxy.default = "http://GKd2xB:n2Ngd8@194.28.192.59:8000";
+  services.v2raya.enable = true;
+  services.happ.enable = true;
+
+  
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -113,11 +119,12 @@
 
 
   programs.steam.enable = true;
+  hardware.enableAllFirmware = true;	  
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-    input.General.IdleTimeout = 1000;
   };
+
   environment.systemPackages = with pkgs; [
     vim
     wget
@@ -131,14 +138,19 @@
     dnsmasq
     amnezia-vpn
     caligula
-  
+    dnsutils
+    jq
+    binutils
+    amdgpu_top
+    python313Packages.unsloth
   ];
 
-  
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
   
   system.stateVersion = "25.11";  
+
+  ai.enable = false;
   
 
   #ffmpeg-thingy 

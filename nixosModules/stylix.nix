@@ -8,6 +8,8 @@
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml"; 
+      image = ../wallpaper.jpg;
+      #polarity = "dark";
     };
   };
 
