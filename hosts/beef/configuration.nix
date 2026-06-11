@@ -143,6 +143,7 @@
     binutils
     amdgpu_top
     python313Packages.unsloth
+    gdb
   ];
 
   hardware.graphics.enable = true;
@@ -150,7 +151,7 @@
   
   system.stateVersion = "25.11";  
 
-  ai.enable = false;
+  ai.enable = true;
   
 
   #ffmpeg-thingy 

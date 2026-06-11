@@ -1,0 +1,16 @@
+[0;1;32m●[0m llama-server.service - llama.cpp server with ROCm
+     Loaded: loaded (]8;;file://nixos/etc/systemd/system/llama-server.service\/etc/systemd/system/llama-server.service]8;;\; [0;1;32menabled[0m; preset: ignored)
+     Active: [0;1;32mactive (running)[0m since Tue 2026-06-09 22:17:24 MSK; 3min 15s ago
+ Invocation: e1d413fada194543a063bcf55e2beb9a
+   Main PID: 56530 (llama-server)
+         IP: 1.9G in, 20.3M out
+         IO: 0B read, 1.5G written
+      Tasks: 5[0;38:5:245m (limit: 37321)[0m
+     Memory: 1.9G (peak: 1.9G)
+        CPU: 3.895s
+     CGroup: /system.slice/llama-server.service
+             └─[0;38:5:245m56530 /nix/store/j78z1bgn27117sma6gi6xbf8qvb6b879-llama-cpp-9190/bin/llama-server --hf-repo bartowski/Qwen_Qwen3-VL-4B-Instruct-GGUF --hf-file Qwen_Qwen3-VL-4B-Instruct-Q8_0.gguf --host 127.0.0.1 --port 8080 -ngl 35[0m
+
+Jun 09 22:17:24 nixos systemd[1]: llama-server.service: Consumed 131ms CPU time over 51.858s wall clock time, 23.8M memory peak, 4K written to disk, 39.4K incoming IP traffic, 13.3K outgoing IP traffic.
+Jun 09 22:17:24 nixos systemd[1]: llama-server.service: Scheduled restart job, restart counter is at 2.
+Jun 09 22:17:24 nixos systemd[1]: Started llama.cpp server with ROCm.
