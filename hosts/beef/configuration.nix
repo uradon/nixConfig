@@ -144,6 +144,9 @@
     amdgpu_top
     python313Packages.unsloth
     gdb
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    
   ];
 
   hardware.graphics.enable = true;

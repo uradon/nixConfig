@@ -34,6 +34,10 @@
     pkgs.anki-bin
     #pkgs.qtcreator
     #pkgs.qt5.qtbase
+    pkgs.telegram-desktop
+    pkgs.lmstudio
+    pkgs.spotify
+    pkgs.discord
    ];
 
   home.file = {
