@@ -120,14 +120,14 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-  nixpkgs.overlays = [
-    (self: super: {
-      openblas = super.openblas.overrideAttrs (oldAttrs: {
-        # Disable the test suite to prevent the checkPhase from hanging
-        doCheck = false;
-      });
-    })
-  ];
+  #nixpkgs.overlays = [
+  #  (self: super: {
+  #    openblas = super.openblas.overrideAttrs (oldAttrs: {
+  #      # Disable the test suite to prevent the checkPhase from hanging
+  #      doCheck = false;
+  #    });
+  #  })
+  #];
 
   programs.steam.enable = true;
 
@@ -176,14 +176,6 @@
 
   ffmpeg-service.enable = true; 
 
-  #nixpkgs.overlays = [
-  #(final: prev: {
-  #  openblas = prev.openblas.overrideAttrs (old: {
-  #   doCheck = false;
-  #    doInstallCheck = false; 
-  #  });
-  #})
-  #];
 
 
 }
