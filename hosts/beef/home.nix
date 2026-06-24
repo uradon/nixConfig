@@ -35,9 +35,8 @@
     #pkgs.qtcreator
     #pkgs.qt5.qtbase
     pkgs.telegram-desktop
-    pkgs.lmstudio
     pkgs.spotify
-    pkgs.discord
+    #pkgs.discord
    ];
 
   home.file = {

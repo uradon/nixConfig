@@ -20,6 +20,7 @@
   #networking.proxy.default = "http://GKd2xB:n2Ngd8@194.28.192.59:8000";
   services.v2raya.enable = true;
   services.happ.enable = true;
+  nixpkgs.config.allowUnfree = true;
 
   
   boot.loader.systemd-boot.enable = true;
@@ -27,12 +28,16 @@
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.search = [ "local" ];
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = "nixos"; # Define your hostname.
 
   nix.settings.auto-optimise-store = true;
 
-  
+
   programs.mtr.enable = true;
 
 
@@ -76,7 +81,6 @@
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
     pulse.enable = true;
     
   };
@@ -110,15 +114,31 @@
   };
   programs.firefox.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
   
   
   
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
+  nixpkgs.overlays = [
+    (self: super: {
+      openblas = super.openblas.overrideAttrs (oldAttrs: {
+        # Disable the test suite to prevent the checkPhase from hanging
+        doCheck = false;
+      });
+    })
+  ];
 
   programs.steam.enable = true;
+
+  fileSystems."/mnt/games" =
+  { 
+      device = "/dev/disk/by-partuuid/ab301ed4-486e-40f0-b569-e50f0cd31511";
+      fsType = "ext4";
+      options = [ "nofail" ];
+  }; 
+
+  
   hardware.enableAllFirmware = true;	  
   hardware.bluetooth = {
     enable = true;
@@ -142,24 +162,28 @@
     jq
     binutils
     amdgpu_top
-    python313Packages.unsloth
     gdb
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-
-    
   ];
 
   hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
   
   system.stateVersion = "25.11";  
 
-  ai.enable = true;
+  #lm studio build fails 
   
-
+ 
   #ffmpeg-thingy 
 
   ffmpeg-service.enable = true; 
+
+  #nixpkgs.overlays = [
+  #(final: prev: {
+  #  openblas = prev.openblas.overrideAttrs (old: {
+  #   doCheck = false;
+  #    doInstallCheck = false; 
+  #  });
+  #})
+  #];
 
 
 }
