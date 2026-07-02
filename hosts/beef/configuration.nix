@@ -32,13 +32,14 @@
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.search = [ "local" ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = "nixos"; # Define your hostname.
 
   nix.settings.auto-optimise-store = true;
 
 
   programs.mtr.enable = true;
+
 
 
   networking.networkmanager.enable = true;
@@ -98,7 +99,7 @@
   };
 
   home-manager = {
-    backupFileExtension = "backup";
+   backupFileExtension = "backup";
     extraSpecialArgs = {
 	inherit inputs;
     };
@@ -129,9 +130,12 @@
   #  })
   #];
 
-  programs.steam.enable = true;
-
-  fileSystems."/mnt/games" =
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; 
+    dedicatedServer.openFirewall = true; 
+  };
+  fileSystems."/mnt/secondary" =
   { 
       device = "/dev/disk/by-partuuid/ab301ed4-486e-40f0-b569-e50f0cd31511";
       fsType = "ext4";
@@ -163,6 +167,7 @@
     binutils
     amdgpu_top
     gdb
+    unrar
   ];
 
   hardware.graphics.enable = true;
