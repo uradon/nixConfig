@@ -5,5 +5,6 @@
     ./watch_episode.nix
     ./rebuild.nix
     ./nixvim.nix
+    ./suckless.nix
   ];   
 }

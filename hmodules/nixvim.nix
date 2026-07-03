@@ -19,7 +19,19 @@
         settings.view_method = "zathura";
       };
 
-      treesitter.enable = true;
+      treesitter = {
+	enable = true;
+        #settings.highlight.enable = true;
+      };
+
+      nvim-autopairs = {
+	enable = true;
+	settings = {
+	  check_ts = true;
+	  enable_check_bracket_line = true;
+	};
+      };
+
 
       "lsp-format" = {
         enable = true;
@@ -31,7 +43,7 @@
         autoEnableSources = true;
         settings.sources = [
           { name = "nvim_lsp"; }
-          { name = "path"; }
+          { name = "path"; } 
           { name = "buffer"; }
         ];
       };

@@ -2,33 +2,26 @@
 
 {
 
-  home.username = "beef";
-  home.homeDirectory = "/home/beef";
+  home.username = "max";
+  home.homeDirectory = "/home/max";
   imports = [ 
   ];
-  home.stateVersion = "25.11"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
   nixpkgs.config.allowUnfree = true;
 
-  programs.bash = {
-  enable = true;
- };
 
-  
-  programs.watch_episode.enable = true;
 
+
+  suckless.enable = true; 
   kitty.enable = true; 
   home.packages = [
     pkgs.qbittorrent
-    pkgs.kdePackages.kolourpaint
-    pkgs.gimp3
     pkgs.fastfetch
-    pkgs.brave
     pkgs.mpv
     pkgs.yt-dlp
     pkgs.exiftool
     pkgs.phoronix-test-suite
     pkgs.stress-ng
-    pkgs.tor
     pkgs.qalculate-qt
     pkgs.anki-bin
     #pkgs.qtcreator
@@ -41,9 +34,10 @@
   home.file = {
 
  };
-
+ programs.bash.enable = true;
  home.sessionVariables = {
     # EDITOR = "emacs";
+    #NIX_CONF_DIR = "$HOME/nixConfig/";
   };
 
   programs.home-manager.enable = true;

@@ -23,7 +23,25 @@
     
   };
 
-  outputs = { nixpkgs, stylix, nixvim, ... }@inputs: {
+  outputs = { nixpkgs, stylix, nixvim, ... }@inputs: 
+  let 
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+  in
+  {
+    devShells.${system}.suckless = pkgs.mkShell {
+      packages = with pkgs; [
+	pkg-config
+	libX11
+	libXft
+	libXinerama
+	fontconfig
+	freetype
+	harfbuzz
+	gcc
+	gnumake
+      ];
+    };
    
     nixosConfigurations.beef = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
@@ -33,6 +51,15 @@
         ./nixosModules
       ];
     };
+    nixosConfigurations.tpad = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        stylix.nixosModules.stylix
+        ./hosts/tpad/configuration.nix
+        ./nixosModules
+      ];
+    };
+    
 
     hmodules.default = ./hmodules;
     

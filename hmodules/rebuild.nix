@@ -1,16 +1,17 @@
 { config, pkgs, lib, ... }:
 
-let
-  cfg = config.programs.rebuild-switch;
-in
 {
-  options.programs.rebuild-switch.enable = lib.mkEnableOption "rebuild handle";
-
-  config = lib.mkIf cfg.enable {
     home.packages = [
       (pkgs.writeShellScriptBin "rebuild" ''
- 	nixos-rebuild switch --flake /home/beef/Config/nixConfig/#beef
+	if [ -z "$1" ]; then
+	  echo "Error: Missing Argument"
+	  echo "Usage: rebuild <hostname>"
+	  exit 1
+	fi
+	TARGET_HOST="$1"
+	TARGET_PATH="$NIX_CONF_DIR/"
+	echo "Rebuilding $TARGET_HOST for path $TARGET_PATH"
+	nixos-rebuild switch --flake $NIX_CONF_DIR/#$TARGET_HOST
       '')
     ];
-  };
 }
