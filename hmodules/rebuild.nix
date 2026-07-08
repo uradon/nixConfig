@@ -9,9 +9,9 @@
 	  exit 1
 	fi
 	TARGET_HOST="$1"
-	TARGET_PATH="$NIX_CONF_DIR/"
+	TARGET_PATH="$DOTFILE_DIR/"
 	echo "Rebuilding $TARGET_HOST for path $TARGET_PATH"
-	nixos-rebuild switch --flake $NIX_CONF_DIR/#$TARGET_HOST
+	nixos-rebuild switch --flake $TARGET_PATH/#$TARGET_HOST
       '')
     ];
 }

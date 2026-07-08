@@ -1,6 +1,7 @@
 {
   description = "Nixos config flake";
 
+  # I love niggers
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 

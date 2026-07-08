@@ -2,20 +2,20 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default 
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
   
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "tpad"; # Define your hostname.
+  networking.hostName = "tpad"; 
 
   networking.networkmanager.enable = true;
 
@@ -46,12 +46,10 @@
 
    users.users.max = {
      isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+     extraGroups = [ "wheel" "networkmanager" "nixbld" ]; 
      packages = with pkgs; [
        tree
      ];
-     shell = pkgs.bash;
-     home = "/home/max";
    };
   home-manager = {
     backupFileExtension = "backup"; 
@@ -78,7 +76,7 @@
    ];
 
   environment.variables = { 
-    NIX_CONF_DIR = "$HOME/nixConfig/";
+    #DOTFILE_DIR = "$HOME/nixConfig/";
     
   };
 

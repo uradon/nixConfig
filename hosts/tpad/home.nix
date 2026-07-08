@@ -37,7 +37,6 @@
  programs.bash.enable = true;
  home.sessionVariables = {
     # EDITOR = "emacs";
-    #NIX_CONF_DIR = "$HOME/nixConfig/";
   };
 
   programs.home-manager.enable = true;
