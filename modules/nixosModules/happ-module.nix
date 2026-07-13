@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.services.happ;
-  happ-package = pkgs.callPackage ./happ.nix {};
+  happ-package = pkgs.callPackage ../packages/happ.nix {};
 in
 {
   options.services.happ = {

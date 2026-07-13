@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  flake.homeModules.default = ../home;
+}

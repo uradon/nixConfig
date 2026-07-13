@@ -21,12 +21,12 @@ pkgs.stdenv.mkDerivation rec {
     glib
     dbus
     libGL
-    xorg.libX11
-    xorg.libSM
-    xorg.libICE
-    xorg.libXext
-    xorg.libXi
-    xorg.libXtst
+    libX11
+    libSM
+    libICE
+    libXext
+    libXi
+    libXtst
     e2fsprogs
     fontconfig
     freetype

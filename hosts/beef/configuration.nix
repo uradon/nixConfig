@@ -9,12 +9,7 @@
     ];
 
  
-  nix.settings = {
-    connect-timeout = 60;
-    http-connections = 50;
-
-  };
-  #nix.settings.substituters = [ "https://aseipp-nix-cache.global.ssl.fastly.net" ];
+   #nix.settings.substituters = [ "https://aseipp-nix-cache.global.ssl.fastly.net" ];
 
 
   networking.proxy.default = "http://127.0.0.1:10809";
@@ -28,13 +23,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ "amdgpu" ];
 
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.search = [ "local" ];
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "beef"; # define your hostname.
 
   nix.settings.auto-optimise-store = true;
 
@@ -45,31 +40,29 @@
 
   networking.networkmanager.enable = true;
 
-  time.timeZone = "Europe/Moscow";
+  time.timezone = "Europe/Moscow";
 
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultlocale = "en_us.utf-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+  i18n.extralocalesettings = {
+    lc_address = "en_us.utf-8";
+    lc_identification = "en_us.utf-8";
+    lc_measurement = "en_us.utf-8";
+    lc_monetary = "en_us.utf-8";
+    lc_name = "en_us.utf-8";
+    lc_numeric = "en_us.utf-8";
+    lc_paper = "en_us.utf-8";
+    lc_telephone = "en_us.utf-8";
+    lc_time = "en_us.utf-8";
   };
 
   
-  services.timesyncd.enable = true; 
-  systemd.services.systemd-timesyncd.serviceConfig.TimeoutStopSec = "5s";
 
   services.xserver.enable = true;
 
 
-  #services.displayManager.sddm.enable = true;
-  #services.desktopManager.plasma6.enable = true;
+  #services.displaymanager.sddm.enable = true;
+  #services.desktopmanager.plasma6.enable = true;
 
   services.xserver.xkb = {
     layout = "us";
@@ -89,6 +82,7 @@
 
 
     
+
   users.users.beef = {
     isNormalUser = true;
     description = "beef";
@@ -116,9 +110,8 @@
   programs.firefox.enable = true;
 
   
-   
-
-
+  
+  
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
@@ -157,9 +150,11 @@
     htop
     ffmpeg-full
     wf-recorder
+    v2rayn
     proxychains
     qemu
     dnsmasq
+    amnezia-vpn
     caligula
     dnsutils
     jq
@@ -167,9 +162,7 @@
     amdgpu_top
     gdb
     unrar
-
   ];
-  
 
   hardware.graphics.enable = true;
   
@@ -181,7 +174,10 @@
   #ffmpeg-thingy 
 
   ffmpeg-service.enable = true; 
-  autorice.enable = false;
   sway.enable = true;
+  autorice.enable = false;
 
+
+
+ 
 }
