@@ -35,6 +35,7 @@
     #pkgs.qt5.qtbase
     pkgs.telegram-desktop
     pkgs.spotify
+    pkgs.libreoffice
     #pkgs.discord
    ];
 
@@ -45,6 +46,8 @@
  home.sessionVariables = {
     # EDITOR = "emacs";
   };
+
+
 
   programs.home-manager.enable = true;
 }

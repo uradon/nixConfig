@@ -7,5 +7,7 @@
     ./jfonts.nix
     ./happ-module.nix
     ./dwm.nix
+    ./sway.nix
+    
   ];   
 }

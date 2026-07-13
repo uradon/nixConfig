@@ -17,10 +17,11 @@
   #nix.settings.substituters = [ "https://aseipp-nix-cache.global.ssl.fastly.net" ];
 
 
-  #networking.proxy.default = "http://GKd2xB:n2Ngd8@194.28.192.59:8000";
+  networking.proxy.default = "http://127.0.0.1:10809";
   services.v2raya.enable = true;
   services.happ.enable = true;
   nixpkgs.config.allowUnfree = true;
+  security.polkit.enable = true;
 
   
   boot.loader.systemd-boot.enable = true;
@@ -67,8 +68,8 @@
   services.xserver.enable = true;
 
 
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  #services.displayManager.sddm.enable = true;
+  #services.desktopManager.plasma6.enable = true;
 
   services.xserver.xkb = {
     layout = "us";
@@ -87,8 +88,7 @@
   };
 
 
-  autorice.enable = true;
-  
+    
   users.users.beef = {
     isNormalUser = true;
     description = "beef";
@@ -116,8 +116,9 @@
   programs.firefox.enable = true;
 
   
-  
-  
+   
+
+
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
@@ -156,11 +157,9 @@
     htop
     ffmpeg-full
     wf-recorder
-    v2rayn
     proxychains
     qemu
     dnsmasq
-    amnezia-vpn
     caligula
     dnsutils
     jq
@@ -168,7 +167,9 @@
     amdgpu_top
     gdb
     unrar
+
   ];
+  
 
   hardware.graphics.enable = true;
   
@@ -180,7 +181,7 @@
   #ffmpeg-thingy 
 
   ffmpeg-service.enable = true; 
-
-
+  autorice.enable = false;
+  sway.enable = true;
 
 }
