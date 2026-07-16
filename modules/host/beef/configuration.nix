@@ -1,20 +1,19 @@
 { self, inputs, ... }: {
-
+  
   flake.nixosModules.beefConfiguration = { pkgs, lib, ... }: {
     # import any other modules from here
     imports = [
       self.nixosModules.beefHardware
-      self.nixosModules.niri
-      self.nixosModules.common
-      inputs.home-manager.nixosModules.home-manager
+      self.nixosModules.default
     ];
 
      #nix.settings.substituters = [ "https://aseipp-nix-cache.global.ssl.fastly.net" ];
 
+    #secret https://connliberty.com/connection/subs/d1e2af85-05f0-4ef9-928d-61ff77c95c53
 
-    networking.proxy.default = "http://127.0.0.1:10809";
+    #networking.proxy.default = "http://127.0.0.1:10809";
     services.v2raya.enable = true;
-    services.happ.enable = true;
+    #services.happ.enable = true;
     nixpkgs.config.allowUnfree = true;
     security.polkit.enable = true;
 
@@ -37,26 +36,23 @@
     programs.mtr.enable = true;
 
 
-
     networking.networkmanager.enable = true;
 
-    time.timezone = "Europe/Moscow";
+    time.timeZone = "Europe/Moscow";
 
-    i18n.defaultlocale = "en_us.utf-8";
+    i18n.defaultLocale = "en_US.UTF-8";
 
-    i18n.extralocalesettings = {
-      lc_address = "en_us.utf-8";
-      lc_identification = "en_us.utf-8";
-      lc_measurement = "en_us.utf-8";
-      lc_monetary = "en_us.utf-8";
-      lc_name = "en_us.utf-8";
-      lc_numeric = "en_us.utf-8";
-      lc_paper = "en_us.utf-8";
-      lc_telephone = "en_us.utf-8";
-      lc_time = "en_us.utf-8";
-    };
-
-    
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };   
 
     services.xserver.enable = true;
 
@@ -92,21 +88,8 @@
       ];
     };
 
-    home-manager = {
-     backupFileExtension = "backup";
-      extraSpecialArgs = {
-	  inherit inputs;
-      };
-      users = {
-	"beef"= {
-	  imports = [
-	    ./home.nix
-	    self.hmodules.default  
-	  ];
-	};
-       };
-	 
-    };
+    home-manager.users.beef = self.homeModules.beefHome; 
+
     programs.firefox.enable = true;
 
     
@@ -168,14 +151,9 @@
     
     system.stateVersion = "25.11";  
 
-    #lm studio build fails 
-    
-   
-    #ffmpeg-thingy 
-
     ffmpeg-service.enable = true; 
-    sway.enable = true;
-    autorice.enable = false;
+    #swayComp.enable = true;
+    #autorice.enable = false;
 
   
   };

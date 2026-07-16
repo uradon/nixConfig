@@ -1,63 +1,63 @@
 { inputs, ... }:
 
 {
+  flake.homeModules.nvim = { ... }: {
 
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
-  
-  programs.nixvim = {
-    enable = true;
+    imports = [
+      inputs.nixvim.homeModules.nixvim
+    ];
 
-    opts = {
-      shiftwidth = 2;
-      relativenumber = true;
-    };
+    programs.nixvim = {
+      enable = true;
 
-    plugins = {
-      neo-tree.enable = true;
-      vimtex = {
-        enable   = true;
-        settings.view_method = "zathura";
+      opts = {
+        shiftwidth = 2;
+        relativenumber = true;
       };
 
-      treesitter = {
-	enable = true;
-        #settings.highlight.enable = true;
-      };
+      plugins = {
+        neo-tree.enable = true;
 
-      nvim-autopairs = {
-	enable = true;
-	settings = {
-	  check_ts = true;
-	  enable_check_bracket_line = true;
-	};
-      };
+        vimtex = {
+          enable = true;
+          settings.view_method = "zathura";
+        };
 
+        treesitter.enable = true;
 
-      "lsp-format" = {
-        enable = true;
-        lspServersToEnable = "all";
-      };
+        nvim-autopairs = {
+          enable = true;
+          settings = {
+            check_ts = true;
+            enable_check_bracket_line = true;
+          };
+        };
 
-      cmp = {
-        enable = true;
-        autoEnableSources = true;
-        settings.sources = [
-          { name = "nvim_lsp"; }
-          { name = "path"; } 
-          { name = "buffer"; }
-        ];
-      };
+        lsp-format = {
+          enable = true;
+          lspServersToEnable = "all";
+        };
 
-      lsp = {
-        enable = true;
-        servers = {
-          clangd.enable = true;
-          texlab.enable = true;
-          nixd.enable   = true;
+        cmp = {
+          enable = true;
+          autoEnableSources = true;
+          settings.sources = [
+            { name = "nvim_lsp"; }
+            { name = "path"; }
+            { name = "buffer"; }
+          ];
+        };
+
+        lsp = {
+          enable = true;
+          servers = {
+            clangd.enable = true;
+            texlab.enable = true;
+            nixd.enable = true;
+          };
         };
       };
     };
+
   };
-
 }
-

@@ -1,13 +1,15 @@
-{ config, pkgs, lib, ...}: {
-  imports = [
-    ./stylix.nix
-    #./sddm.nix
-    ./haVideo.nix
-    ./ffmpeg-service.nix
-    ./jfonts.nix
-    ./happ-module.nix
-    ./dwm.nix
-    ./sway.nix
-    
-  ];   
+{ self, ... }:
+
+{
+  flake.nixosModules.default = {
+    imports = [
+      self.nixosModules.dwm
+      self.nixosModules.ffmpegService
+      self.nixosModules.haVideo
+      self.nixosModules.happModule
+      self.nixosModules.JFonts
+      self.nixosModules.stylix
+      self.nixosModules.sway
+    ];
+  };
 }
