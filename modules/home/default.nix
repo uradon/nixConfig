@@ -5,7 +5,7 @@
     imports = [
       self.homeModules.kitty
       self.homeModules.nvim
-      self.homeModules.rebuild
+      #self.homeModules.rebuild
       self.homeModules.suckless
       self.homeModules.watchEpisode
 

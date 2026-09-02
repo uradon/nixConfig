@@ -1,12 +1,35 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
+
+#stolen from MrShitFox
+
+let
+  lib = pkgs.lib;
+
+  # External command-line tools that the Happ client and its helper scripts shell
+  # out to at runtime. Wrapping them into Happ's PATH makes the client
+  # self-contained instead of depending on whatever PATH the desktop session
+  # happens to export:
+  #   - uname (coreutils) / lsb_release  -> OS & device-info reporting
+  #   - ifconfig / route (net-tools)     -> network interface discovery
+  #   - ip (iproute2) / iptables         -> TUN routing setup
+  #   - ps / kill (procps)               -> managing the bundled cores
+  runtimeDeps = with pkgs; [
+    coreutils
+    lsb-release
+    net-tools
+    iproute2
+    iptables
+    procps
+  ];
+in
 pkgs.stdenv.mkDerivation rec {
   pname = "happ-desktop";
-  version = "2.16.2";
+  version = "2.18.3";
 
   src = pkgs.fetchurl {
     url = "https://github.com/Happ-proxy/happ-desktop/releases/download/${version}/Happ.linux.x64.deb";
-    sha256 = "1xgzifrhdrc80xd2hxn7zbmgskh58637b9q10bngbnm4542cxxsi";
+    sha256 = "x2G4RCroEWT/FpjjXrCncVoYhkb5zJ0Ckwd10sC5QxQ=";
   };
 
   nativeBuildInputs = with pkgs; [
@@ -40,9 +63,7 @@ pkgs.stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/happ
-    mkdir -p $out/share/applications
-    mkdir -p $out/bin
+    mkdir -p $out/happ $out/share/applications $out/bin
 
     dpkg -x $src .
     cp -r opt/happ/* $out/happ/
@@ -51,16 +72,26 @@ pkgs.stdenv.mkDerivation rec {
       cp -r usr/share/* $out/share/
     fi
 
-    wrapProgram $out/happ/bin/Happ \
-      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.openssl ]}" \
-      --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-
-    wrapProgram $out/happ/bin/happd \
-      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.openssl ]}" \
-      --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    # Wrap both the GUI (Happ) and the privileged control daemon (happd).
+    for exe in Happ happd; do
+      wrapProgram $out/happ/bin/$exe \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ pkgs.openssl ]}" \
+        --prefix PATH : "${lib.makeBinPath runtimeDeps}" \
+        --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    done
 
     ln -s $out/happ/bin/Happ $out/bin/happ
 
     runHook postInstall
   '';
+
+  meta = {
+    description = "Happ proxy desktop client (VLESS/VMess/Trojan/Shadowsocks) with a TUN daemon";
+    homepage = "https://github.com/Happ-proxy/happ-desktop";
+    platforms = [ "x86_64-linux" ];
+    mainProgram = "happ";
+    # Happ is distributed as a closed-source, freely redistributable binary.
+    # The license field is intentionally left unset so importing this package
+    # does not force `allowUnfree` on users that do not already enable it.
+  };
 }

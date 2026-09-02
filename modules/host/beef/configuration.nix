@@ -9,11 +9,13 @@
 
      #nix.settings.substituters = [ "https://aseipp-nix-cache.global.ssl.fastly.net" ];
 
-    #secret https://connliberty.com/connection/subs/d1e2af85-05f0-4ef9-928d-61ff77c95c53
-
+     environment.sessionVariables = {
+      MY_REBUILD_DIRECTORY = "/home/beef/Config/nixConfig";
+    };
     #networking.proxy.default = "http://127.0.0.1:10809";
     services.v2raya.enable = true;
-    #services.happ.enable = true;
+    services.happ.enable = true;
+
     nixpkgs.config.allowUnfree = true;
     security.polkit.enable = true;
 
@@ -137,7 +139,6 @@
       proxychains
       qemu
       dnsmasq
-      amnezia-vpn
       caligula
       dnsutils
       jq
@@ -145,7 +146,13 @@
       amdgpu_top
       gdb
       unrar
+      btop-rocm
+      tor
+      nautilus
     ];
+
+
+  
 
     hardware.graphics.enable = true;
     
@@ -153,7 +160,7 @@
 
     ffmpeg-service.enable = true; 
     #swayComp.enable = true;
-    #autorice.enable = false;
+    autorice.enable = false;
 
   
   };

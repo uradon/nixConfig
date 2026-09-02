@@ -31,7 +31,6 @@
     kitty.enable = true;
 
     home.packages = with pkgs; [
-      qbittorrent
       kdePackages.kolourpaint
       gimp3
       fastfetch
@@ -41,12 +40,14 @@
       exiftool
       phoronix-test-suite
       stress-ng
-      tor
       qalculate-qt
       anki-bin
       telegram-desktop
       spotify
       libreoffice
+      tor-browser
+      qbittorrent
+      discord
 
      # later:
      # self.packages.${pkgs.system}.myKitty

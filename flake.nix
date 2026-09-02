@@ -19,6 +19,7 @@
     import-tree.url = "github:vic/import-tree";
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+    happ-nix.url = "github:DaHL-gh/happ-nix";
 
   };
 

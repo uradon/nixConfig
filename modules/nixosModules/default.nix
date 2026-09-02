@@ -10,6 +10,7 @@
       self.nixosModules.JFonts
       self.nixosModules.stylix
       self.nixosModules.sway
+      self.nixosModules.rebuild
     ];
   };
 }

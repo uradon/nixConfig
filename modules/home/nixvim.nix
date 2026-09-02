@@ -16,6 +16,7 @@
       };
 
       plugins = {
+	orgmode.enable = true;
         neo-tree.enable = true;
 
         vimtex = {
